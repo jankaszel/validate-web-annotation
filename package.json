@@ -1,20 +1,29 @@
 {
   "name": "validate-web-annotation",
   "version": "0.1.0",
-  "description": "",
+  "description": "Validator for W3C Web Annotations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/falafeljan/validate-web-annotation.git"
   },
-  "keywords": ["annotation", "web-annotation"],
+  "keywords": [
+    "annotation",
+    "web-annotation"
+  ],
   "author": "Jan Kaßel <jan@kassel.works>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/falafeljan/validate-web-annotation/issues"
   },
-  "homepage": "https://github.com/falafeljan/validate-web-annotation#readme"
+  "homepage": "https://github.com/falafeljan/validate-web-annotation#readme",
+  "dependencies": {
+    "ajv": "^6.12.3"
+  },
+  "devDependencies": {
+    "tape": "^5.0.1"
+  }
 }

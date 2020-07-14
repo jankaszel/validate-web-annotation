@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "const": "http://www.w3.org/ns/anno.jsonld"
+    },
+    "type": {
+      "const": "Annotation"
+    },
+    "id": {
+      "type": "string",
+      "format": "iri"
+    },
+    "body": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/body"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/body"
+          }
+        }
+      ]
+    },
+    "target": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/target"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/target"
+          }
+        }
+      ]
+    }
+  },
+  "required": ["@context", "id", "type", "target"],
+  "definitions": {
+    "body": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "iri"
+        },
+        {
+          "$ref": "#/definitions/bodyResource"
+        }
+      ]
+    },
+    "bodyResource": {
+      "type": "object"
+    },
+    "target": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "iri"
+        },
+        {
+          "$ref": "#/definitions/externalResource"
+        }
+      ]
+    },
+    "externalResource": {
+      "type": "object"
+    }
+  }
+}
