@@ -9,7 +9,7 @@
       "format": "iri"
     },
     "body": {
-      "anyOf": [
+      "oneOf": [
         { "$ref": "#/definitions/body" },
         {
           "type": "array",
@@ -21,10 +21,8 @@
     },
     "bodyValue": { "type": "string" },
     "target": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/target"
-        },
+      "oneOf": [
+        { "$ref": "#/definitions/target" },
         {
           "type": "array",
           "items": { "$ref": "#/definitions/target" }
@@ -48,11 +46,8 @@
           "format": "iri"
         },
         { "$ref": "#/definitions/textualBody" },
-        { "$ref": "#/definitions/bodyResource" }
+        { "$ref": "#/definitions/externalResource" }
       ]
-    },
-    "bodyResource": {
-      "type": "object"
     },
     "textualBody": {
       "type": "object",
@@ -64,7 +59,7 @@
       "required": ["type", "value"]
     },
     "target": {
-      "oneOf": [
+      "anyOf": [
         {
           "type": "string",
           "format": "iri"
@@ -79,9 +74,9 @@
           "type": "string",
           "format": "iri"
         },
-        "type": { "type": "string" },
-        "format": { "type": "string" },
-        "language": { "type": "string" },
+        "type": { "$ref": "#/definitions/string-value-or-array" },
+        "format": { "$ref": "#/definitions/string-value-or-array" },
+        "language": { "$ref": "#/definitions/string-value-or-array" },
         "processingLanguage": { "type": "string" },
         "textDirection": {
           "type": "string",
@@ -89,6 +84,17 @@
         }
       },
       "required": ["id"]
+    },
+    "string-value-or-array": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
     }
   }
 }

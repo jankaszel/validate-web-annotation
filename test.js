@@ -44,3 +44,55 @@ test('textual body', (t) => {
     'both bodyValue and body IRI'
   )
 })
+
+test('external resources', (t) => {
+  t.plan(3)
+  t.ok(
+    validateAnnotation(
+      {
+        ...basicAnnotation,
+        body: {
+          id: 'http://example.org/analysis1.mp3',
+          format: 'audio/mpeg',
+          language: 'fr',
+        },
+        target: {
+          id: 'http://example.gov/patent1.pdf',
+          format: 'application/pdf',
+          language: ['en', 'ar'],
+          textDirection: 'ltr',
+          processingLanguage: 'en',
+        },
+      },
+      'both external body and target'
+    )
+  )
+  t.notOk(
+    validateAnnotation(
+      {
+        ...basicAnnotation,
+        target: {
+          format: 'application/pdf',
+          language: ['en', 'ar'],
+          textDirection: 'ltr',
+          processingLanguage: 'en',
+        },
+      },
+      'external target with missing ID'
+    )
+  )
+  t.notOk(
+    validateAnnotation(
+      {
+        ...basicAnnotation,
+        body: {
+          format: 'application/pdf',
+          language: ['en', 'ar'],
+          textDirection: 'ltr',
+          processingLanguage: 'en',
+        },
+      },
+      'external body with missing ID'
+    )
+  )
+})
