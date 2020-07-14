@@ -1,12 +1,12 @@
-const Ajv = require("ajv");
-const formats = require("./formats");
-const annotationSchema = require("./wadm-schema.json");
+const Ajv = require('ajv')
+const formats = require('./formats')
+const annotationSchema = require('./wadm-schema.json')
 
-const ajv = new Ajv();
-ajv.addFormat("iri", formats.iri);
+const ajv = new Ajv()
+ajv.addFormat('iri', formats.iri)
 
-const validate = ajv.compile(annotationSchema);
+const validate = ajv.compile(annotationSchema)
 
-module.exports = function validateAnnotation(annotation) {
-  return validate(annotation);
-};
+module.exports = function validateAnnotation (annotation) {
+  return validate(annotation)
+}

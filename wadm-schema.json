@@ -2,21 +2,15 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
-    "@context": {
-      "const": "http://www.w3.org/ns/anno.jsonld"
-    },
-    "type": {
-      "const": "Annotation"
-    },
+    "@context": { "const": "http://www.w3.org/ns/anno.jsonld" },
+    "type": { "const": "Annotation" },
     "id": {
       "type": "string",
       "format": "iri"
     },
     "body": {
       "anyOf": [
-        {
-          "$ref": "#/definitions/body"
-        },
+        { "$ref": "#/definitions/body" },
         {
           "type": "array",
           "items": {
@@ -25,6 +19,7 @@
         }
       ]
     },
+    "bodyValue": { "type": "string" },
     "target": {
       "anyOf": [
         {
@@ -32,28 +27,41 @@
         },
         {
           "type": "array",
-          "items": {
-            "$ref": "#/definitions/target"
-          }
+          "items": { "$ref": "#/definitions/target" }
         }
       ]
     }
   },
   "required": ["@context", "id", "type", "target"],
+  "dependencies": {
+    "bodyValue": {
+      "not": {
+        "required": ["body"]
+      }
+    }
+  },
   "definitions": {
     "body": {
-      "oneOf": [
+      "anyOf": [
         {
           "type": "string",
           "format": "iri"
         },
-        {
-          "$ref": "#/definitions/bodyResource"
-        }
+        { "$ref": "#/definitions/textualBody" },
+        { "$ref": "#/definitions/bodyResource" }
       ]
     },
     "bodyResource": {
       "type": "object"
+    },
+    "textualBody": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "TextualBody" },
+        "value": { "type": "string" },
+        "format": { "type": "string" }
+      },
+      "required": ["type", "value"]
     },
     "target": {
       "oneOf": [
@@ -61,13 +69,26 @@
           "type": "string",
           "format": "iri"
         },
-        {
-          "$ref": "#/definitions/externalResource"
-        }
+        { "$ref": "#/definitions/externalResource" }
       ]
     },
     "externalResource": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "iri"
+        },
+        "type": { "type": "string" },
+        "format": { "type": "string" },
+        "language": { "type": "string" },
+        "processingLanguage": { "type": "string" },
+        "textDirection": {
+          "type": "string",
+          "enum": ["ltr", "rtl", "auto"]
+        }
+      },
+      "required": ["id"]
     }
   }
 }
