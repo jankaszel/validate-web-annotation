@@ -10,6 +10,7 @@
     },
     "body": {
       "oneOf": [
+        { "$ref": "#/definitions/bodyChoice" },
         { "$ref": "#/definitions/body" },
         {
           "type": "array",
@@ -61,6 +62,17 @@
         "format": { "type": "string" }
       },
       "required": ["type", "value"]
+    },
+    "bodyChoice": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "Choice" },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/body" }
+        }
+      },
+      "required": ["type", "items"]
     },
     "target": {
       "anyOf": [

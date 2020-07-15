@@ -123,3 +123,26 @@ test('body and target cardinality', (t) => {
     })
   )
 })
+
+test('body choice', (t) => {
+  t.plan(2)
+  t.ok(
+    validateAnnotation({
+      ...basicAnnotation,
+      body: {
+        type: 'Choice',
+        items: [bodyIri, textualBody],
+      },
+    }),
+    'choice on IRI or textual body'
+  )
+  t.notOk(
+    validateAnnotation({
+      ...basicAnnotation,
+      body: {
+        type: 'Choice',
+      },
+    }),
+    'choice missing items'
+  )
+})
