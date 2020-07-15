@@ -1,5 +1,5 @@
 const test = require('tape')
-const validateAnnotation = require('./')
+const validateAnnotation = require('./schema')
 
 const bodyIri = 'http://example.org/post1'
 const textualBody = {
