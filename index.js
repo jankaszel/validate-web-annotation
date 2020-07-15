@@ -1,5 +1,2 @@
 const validateAnnotationSchema = require('./schema')
-
-module.exports = {
-  validateAnnotationSchema,
-}
+module.exports = validateAnnotationSchema
