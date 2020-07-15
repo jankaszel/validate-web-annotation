@@ -4,6 +4,7 @@
   "description": "Validator for W3C Web Annotations",
   "main": "index.js",
   "scripts": {
+    "bench": "node benchmark.js",
     "test": "node test.js"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "ajv": "^6.12.3"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "tape": "^5.0.1"
   }
 }
