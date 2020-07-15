@@ -29,6 +29,48 @@
           "items": { "$ref": "#/definitions/target" }
         }
       ]
+    },
+    "creator": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "iri"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "iri"
+          }
+        }
+      ]
+    },
+    "created": {
+      "type": "string",
+      "format": "date"
+    },
+    "generator": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "iri"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "iri"
+          }
+        }
+      ]
+    },
+    "generated": {
+      "type": "string",
+      "format": "date"
+    },
+    "modified": {
+      "type": "string",
+      "format": "date"
     }
   },
   "required": ["@context", "id", "type", "target"],
@@ -100,6 +142,43 @@
         }
       },
       "required": ["id"]
+    },
+    "agent": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "iri"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "iri"
+            },
+            "type": { "$ref": "#/definitions/string-value-or-array" },
+            "name": { "$ref": "#/definitions/string-value-or-array" },
+            "nickname": { "$ref": "#/definitions/string-value-or-array" },
+            "email": { "$ref": "#/definitions/string-value-or-array" },
+            "email_sha1": { "$ref": "#/definitions/string-value-or-array" },
+            "homepage": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "iri"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "iri"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     "string-value-or-array": {
       "oneOf": [
