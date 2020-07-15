@@ -4,7 +4,7 @@ A JavaScript library for validating JSON objects against the [Web Annotation Dat
 
 `npm install validate-web-annotation`
 
-This library is still under active development and only partially covers the WADM specification. While most general-purpose properties of an annotation are being properly validated (e.g., `id`, `target`, `body`), more specific properties such as `purpose` and `state` are missing validation. I intend this library to act rather efficient and general-purpose than covering the whole WADM specification, so I'll explicitly specify the validation coverage.
+This library is still under active development and only partially covers the WADM specification. While most general-purpose properties of an annotation are being properly validated (e.g., `id`, `target`, `body`), more specific properties such as `purpose` and `state` are missing validation. I intend this library to perform efficiently and general-purpose rather than covering the whole WADM specification. I'll explicitly specify the validation coverage in future versions.
 
 ## API
 
