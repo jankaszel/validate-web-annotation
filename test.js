@@ -17,16 +17,47 @@ const targetResource = {
   processingLanguage: 'en',
 }
 
+const context = 'http://www.w3.org/ns/anno.jsonld'
 const basicAnnotation = {
-  '@context': 'http://www.w3.org/ns/anno.jsonld',
+  '@context': context,
   id: 'http://example.org/anno1',
   type: 'Annotation',
   target: targetIri,
 }
 
 test('basic annotation', (t) => {
-  t.plan(1)
+  const failures = [
+    {},
+    {
+      ...basicAnnotation,
+      '@context': 'foobar',
+    },
+    {
+      ...basicAnnotation,
+      '@context': ['foo', 'bar'],
+    },
+    {
+      ...basicAnnotation,
+      type: 'foobar',
+    },
+    {
+      ...basicAnnotation,
+      target: 'foobar',
+    },
+  ]
+
+  t.plan(2 + failures.length)
   t.ok(validateAnnotation(basicAnnotation))
+  t.ok(
+    validateAnnotation({
+      ...basicAnnotation,
+      '@context': ['http://example.com/some-schema.jsonld', context],
+    })
+  )
+
+  for (const failure of failures) {
+    t.notOk(validateAnnotation(failures))
+  }
 })
 
 test('textual body', (t) => {

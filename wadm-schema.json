@@ -2,7 +2,19 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
-    "@context": { "const": "http://www.w3.org/ns/anno.jsonld" },
+    "@context": {
+      "oneOf": [
+        { "const": "http://www.w3.org/ns/anno.jsonld" },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "iri"
+          },
+          "contains": { "const": "http://www.w3.org/ns/anno.jsonld" }
+        }
+      ]
+    },
     "type": { "const": "Annotation" },
     "id": {
       "type": "string",
