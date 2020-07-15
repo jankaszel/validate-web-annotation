@@ -44,16 +44,10 @@
     },
     "creator": {
       "oneOf": [
-        {
-          "type": "string",
-          "format": "iri"
-        },
+        { "$ref": "#/definitions/agent" },
         {
           "type": "array",
-          "items": {
-            "type": "string",
-            "format": "iri"
-          }
+          "items": { "$ref": "#/definitions/agent" }
         }
       ]
     },
@@ -63,16 +57,10 @@
     },
     "generator": {
       "oneOf": [
-        {
-          "type": "string",
-          "format": "iri"
-        },
+        { "$ref": "#/definitions/agent" },
         {
           "type": "array",
-          "items": {
-            "type": "string",
-            "format": "iri"
-          }
+          "items": { "$ref": "#/definitions/agent" }
         }
       ]
     },
