@@ -2,11 +2,26 @@ const test = require('tape')
 const validateAnnotation = require('./')
 
 const bodyIri = 'http://example.org/post1'
+const textualBody = {
+  type: 'TextualBody',
+  value: 'Comment text',
+  format: 'text/plain',
+}
+
+const targetIri = 'http://example.com/page1'
+const targetResource = {
+  id: 'http://example.gov/patent1.pdf',
+  format: 'application/pdf',
+  language: ['en', 'ar'],
+  textDirection: 'ltr',
+  processingLanguage: 'en',
+}
+
 const basicAnnotation = {
   '@context': 'http://www.w3.org/ns/anno.jsonld',
   id: 'http://example.org/anno1',
   type: 'Annotation',
-  target: 'http://example.com/page1',
+  target: targetIri,
 }
 
 test('basic annotation', (t) => {
@@ -25,14 +40,7 @@ test('textual body', (t) => {
     'only body IRI'
   )
   t.ok(
-    validateAnnotation({
-      ...basicAnnotation,
-      body: {
-        type: 'TextualBody',
-        value: 'Comment text',
-        format: 'text/plain',
-      },
-    }),
+    validateAnnotation({ ...basicAnnotation, body: textualBody }),
     'only body textual body'
   )
   t.notOk(
@@ -94,5 +102,24 @@ test('external resources', (t) => {
       },
       'external body with missing ID'
     )
+  )
+})
+
+test('body and target cardinality', (t) => {
+  t.plan(2)
+  t.ok(
+    validateAnnotation(
+      {
+        ...basicAnnotation,
+        body: [bodyIri, textualBody],
+      },
+      'both iri and textual body'
+    )
+  )
+  t.ok(
+    validateAnnotation({
+      ...basicAnnotation,
+      target: [targetIri, targetResource, 'http://example.com/post2'],
+    })
   )
 })
