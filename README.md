@@ -1,6 +1,6 @@
 # Validating Web Annotations
 
-A JavaScript library for validating JSON objects against the [Web Annotation Data Model (WADM)](https://www.w3.org/TR/annotation-model/) via [JSON Schema](https://json-schema.org).
+A JavaScript library for validating JSON objects against the [Web Annotation Data Model (WADM) specification](https://www.w3.org/TR/annotation-model/) via [JSON Schema](https://json-schema.org).
 
 `npm install validate-web-annotation`
 
