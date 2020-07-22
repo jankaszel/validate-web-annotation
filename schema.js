@@ -1,11 +1,13 @@
 const Ajv = require('ajv')
 const formats = require('./formats')
-const annotationSchema = require('./wadm-schema.json')
+const createSchema = require('./wadm-schema.js')
 
 const ajv = new Ajv()
 ajv.addFormat('iri', formats.iri)
-const validate = ajv.compile(annotationSchema)
+const validate = ajv.compile(createSchema())
+const validateOptionalId = ajv.compile(createSchema({ optionalId: true }))
 
-module.exports = function validateAnnotationSchema (annotation) {
-  return validate(annotation)
+module.exports = function validateAnnotationSchema (annotation, opts = {}) {
+  const optionalId = opts.optionalId || false
+  return optionalId ? validateOptionalId(annotation) : validate(annotation)
 }

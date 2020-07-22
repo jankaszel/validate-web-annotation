@@ -10,6 +10,13 @@ This library is still under active development and only partially covers the WAD
 
 This library exposes a simple function for validating annotations:
 
+`validateAnnotation(annotation, opts = {})`
+
+Options:
+* `optionalId`: The annotation's ID (`annotation.id`) becomes optional. Suited for validating not-yet-persisted annotations.
+
+Returns a boolean value on whether the input is valid or not.
+
 ```js
 // see ./example.js for a full example
 const validateAnnotation = require("validate-web-annotation");
