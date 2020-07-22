@@ -60,6 +60,32 @@ test('basic annotation', (t) => {
   }
 })
 
+test('basic annotation without id', (t) => {
+  t.plan(4)
+  const withoutId = { ...basicAnnotation }
+  delete withoutId.id
+
+  t.notOk(validateAnnotation(withoutId), 'default fails without id')
+  t.ok(
+    validateAnnotation(withoutId, { optionalId: true }),
+    'opts.optionalId passes without id'
+  )
+  t.ok(
+    validateAnnotation(basicAnnotation, { optionalId: true }),
+    'opts.optionalId passes with id'
+  )
+  t.notOk(
+    validateAnnotation(
+      {
+        ...withoutId,
+        type: 'foobar',
+      },
+      { optionalId: true }
+    ),
+    'opts.optionalId fails without id and wrong type'
+  )
+})
+
 test('textual body', (t) => {
   t.plan(4)
   t.ok(
