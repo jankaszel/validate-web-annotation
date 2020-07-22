@@ -1,6 +1,6 @@
 {
   "name": "validate-web-annotation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Validate JSON objects against the Web Annotation Data Model specification",
   "main": "index.js",
   "scripts": {
