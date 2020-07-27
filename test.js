@@ -203,3 +203,55 @@ test('body choice', (t) => {
     'choice missing items'
   )
 })
+
+test('specific resources and selectors', (t) => {
+  t.plan(4)
+  t.ok(
+    validateAnnotation({
+      ...basicAnnotation,
+      target: {
+        source: targetIri,
+        purpose: 'tagging',
+      },
+    }),
+    'specific resource with purpose'
+  )
+  t.notOk(
+    validateAnnotation({
+      ...basicAnnotation,
+      target: {
+        type: 'SpecificResource',
+      },
+    }),
+    'specific resource with type and missing source'
+  )
+  t.ok(
+    validateAnnotation({
+      ...basicAnnotation,
+      target: {
+        type: 'SpecificResource',
+        source: targetIri,
+        purpose: 'tagging',
+        selector: {
+          type: 'CssSelector',
+          value: '#elemid > .elemclass + p',
+        },
+      },
+    }),
+    'specific resource with purpose and css selector'
+  )
+  t.notOk(
+    validateAnnotation({
+      ...basicAnnotation,
+      target: {
+        type: 'SpecificResource',
+        source: targetIri,
+        purpose: 'tagging',
+        selector: {
+          value: '#elemid > .elemclass + p',
+        },
+      },
+    }),
+    'specific resource with missing selector type'
+  )
+})

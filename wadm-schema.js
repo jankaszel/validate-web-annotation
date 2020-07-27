@@ -8,6 +8,14 @@ const valueOrArray = (wrappedType) => ({
   ],
 })
 
+const stringValueOrArray = valueOrArray({
+  type: 'string',
+})
+const iriValueOrArray = valueOrArray({
+  type: 'string',
+  format: 'iri',
+})
+
 module.exports = (opts = {}) => ({
   $schema: 'http://json-schema.org/schema#',
   type: 'object',
@@ -80,6 +88,7 @@ module.exports = (opts = {}) => ({
           format: 'iri',
         },
         { $ref: '#/definitions/textualBody' },
+        { $ref: '#/definitions/specificResource' },
         { $ref: '#/definitions/externalResource' },
       ],
     },
@@ -113,6 +122,7 @@ module.exports = (opts = {}) => ({
           type: 'string',
           format: 'iri',
         },
+        { $ref: '#/definitions/specificResource' },
         { $ref: '#/definitions/externalResource' },
       ],
     },
@@ -123,9 +133,9 @@ module.exports = (opts = {}) => ({
           type: 'string',
           format: 'iri',
         },
-        type: { $ref: '#/definitions/string-value-or-array' },
-        format: { $ref: '#/definitions/string-value-or-array' },
-        language: { $ref: '#/definitions/string-value-or-array' },
+        type: stringValueOrArray,
+        format: stringValueOrArray,
+        language: stringValueOrArray,
         processingLanguage: { type: 'string' },
         textDirection: {
           type: 'string',
@@ -133,6 +143,35 @@ module.exports = (opts = {}) => ({
         },
       },
       required: ['id'],
+    },
+    specificResource: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          format: 'iri',
+        },
+        type: { type: 'string' },
+        source: {
+          type: 'string',
+          format: 'iri',
+        },
+        selector: {
+          oneOf: [
+            { type: 'string', format: 'iri' },
+            { $ref: '#/definitions/selector' },
+            { type: 'array', items: { $ref: '#/definitions/selector' } },
+          ],
+        },
+      },
+      required: ['source'],
+    },
+    selector: {
+      type: 'object',
+      properties: {
+        type: { type: 'string' },
+      },
+      required: ['type'],
     },
     agent: {
       oneOf: [
@@ -147,37 +186,12 @@ module.exports = (opts = {}) => ({
               type: 'string',
               format: 'iri',
             },
-            type: { $ref: '#/definitions/string-value-or-array' },
-            name: { $ref: '#/definitions/string-value-or-array' },
-            nickname: { $ref: '#/definitions/string-value-or-array' },
-            email: { $ref: '#/definitions/string-value-or-array' },
-            email_sha1: { $ref: '#/definitions/string-value-or-array' },
-            homepage: {
-              oneOf: [
-                {
-                  type: 'string',
-                  format: 'iri',
-                },
-                {
-                  type: 'array',
-                  items: {
-                    type: 'string',
-                    format: 'iri',
-                  },
-                },
-              ],
-            },
-          },
-        },
-      ],
-    },
-    'string-value-or-array': {
-      oneOf: [
-        { type: 'string' },
-        {
-          type: 'array',
-          items: {
-            type: 'string',
+            type: stringValueOrArray,
+            name: stringValueOrArray,
+            nickname: stringValueOrArray,
+            email: stringValueOrArray,
+            email_sha1: stringValueOrArray,
+            homepage: iriValueOrArray,
           },
         },
       ],
